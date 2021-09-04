@@ -1,12 +1,23 @@
 <?php
-$t = date("H");
-
-if ($t < "10") {
-  echo "Have a good morning!";
-} elseif ($t < "20") {
-  echo "Have a good day!";
-} else {
-  echo "Have a good night!";
+if($_POST["submit"]){
+    $filename=$_POST["Index.txt"];
+    $title=$_POST["title"];
+    $article=$_POST["article"];
+    
+    if(!empty($title) && !empty($article)){
+        $fp = fopen($filename, "a");
+        $fwrite=($fp);
+        fclose($fp);
+    }elseif(empty($title) && !empty($article)){
+        echo 'タイトルは必須です';
+    }elseif(31<mb_strlen($title)){
+        echo '文字数が多い';
+    }elseif(!empty($title) && empty(article)){
+        echo '記事は必須です';
+    }else{
+        echo 'タイトルは必須です';
+        echo '記事は必須です';
+    }
 }
 ?>
 
@@ -21,13 +32,13 @@ if ($t < "10") {
 <body>
     <nav class="main-title">
         <div class="nav-ber">
-        <a href="http://localhost/php_task.html/php_task.php">Laravel News</a>
+        <a href="http://localhost/php_task/">Laravel News</a>
         </div>
     </nav>
       
     <section class="input-form">
         <h1 class="form-header">さぁ、最新のニュースをシェアしましょう</h1>
-        <form action="ryo_php_task/posts" method="POST" onSubmit="return check()">
+        <form action="" method="POST" onSubmit="return check()">
             <div class="input-title">    
                 <label for="title">タイトル:</label>
                 <input type="text" name="title">
@@ -41,14 +52,5 @@ if ($t < "10") {
             </div>
         </form>
     </section>
-
-    <section class="post">
-        <div class="post">
-            <h2 class="post-title">タイトル文</h2>
-            <p class="post-article">記事の文</p>
-            <a href="php_task_posts.php">記事全文・コメントを見る</a>
-        </div>
-    </section>
-    
 </body>
 </html>
